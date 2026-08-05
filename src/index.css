@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+/* Theme tokens. Orange is the primary brand color (light mode: orange
+   background, black text/icons). Dark mode flips to black as the base
+   with orange carrying through as the foreground/accent color instead —
+   not just a darker shade of orange, an actual light/dark pair. */
+body.theme-dark {
+  --bg-rgb: 12 8 4;
+  --surface-rgb: 24 16 8;
+  --fg-rgb: 249 115 22;
+  background: rgb(var(--bg-rgb));
+}
+body.theme-light {
+  --bg-rgb: 249 115 22;
+  --surface-rgb: 234 88 12;
+  --fg-rgb: 20 12 4;
+  background: rgb(var(--bg-rgb));
+}
+body {
+  margin: 0;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Bold rounded brand font (AOL-style wordmark weight) for the "Z" logo and
+   every username in the app — everything else stays on the default sans
+   so body text/comments/captions don't feel shouty. */
+.font-brand {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+}
+
+/* Diagonal faceted black/orange backdrop, styled after the reference image
+   — a hard angular split rather than a soft blend, with a couple of subtle
+   diagonal sheen/shadow bands layered in for the shard-like depth. */
+.auth-backdrop {
+  background-color: #f97316;
+  background-image:
+    linear-gradient(115deg, #000000 0%, #000000 42%, transparent 42.5%),
+    linear-gradient(115deg, transparent 0%, transparent 58%, rgba(0, 0, 0, 0.35) 58.5%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(245deg, rgba(255, 255, 255, 0.12) 0%, transparent 30%),
+    linear-gradient(65deg, rgba(0, 0, 0, 0.25) 0%, transparent 35%);
+}
+
+@keyframes heart-pop {
+  0% { transform: scale(0); opacity: 0; }
+  15% { transform: scale(1.2); opacity: 1; }
+  30% { transform: scale(1); opacity: 1; }
+  80% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+.animate-heart-pop { animation: heart-pop 0.7s ease-out; }
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadein { animation: fadein 0.22s ease-out; }
+
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes sheet-up-desktop {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-sheet { animation: sheet-up 0.25s cubic-bezier(0.32, 0.72, 0, 1); }
+@media (min-width: 640px) {
+  .animate-sheet { animation: sheet-up-desktop 0.18s ease-out; }
+}
+
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-backdrop { animation: backdrop-in 0.18s ease-out; }
+
+/* Every tappable control gets a quick, consistent press-down feel */
+button:not(:disabled):active {
+  transform: scale(0.96);
+  transition: transform 0.08s ease-out;
+}
+button {
+  transition: transform 0.12s ease-out, opacity 0.12s ease-out;
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: scale(0.85) translateY(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-msg-in { animation: msg-in 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Bolder, punchier icon strokes app-wide instead of lucide's thin default —
+   part of the more "dynamic" look, not just a nav-bar-only tweak. */
+svg {
+  stroke-width: 2.25;
+}
+
